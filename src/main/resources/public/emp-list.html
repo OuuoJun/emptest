@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<script>
+    $(()=>{
+
+        StuList(null);
+
+        $("#btnQuery").click(function () {
+            var ename = $("#ename").val()
+            StuList(ename);
+        })
+        $("#ename").keyup(function () {
+            if (!$("#ename").val()) {
+                StuList(null);
+            }
+        })
+    })
+
+    function StuList(ename) {
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            url:"select",
+            data:{"ename":ename},
+            success:function (data) {
+                var temp = `
+                 <tr>
+        <th>员工编号</th>
+        <th>员工姓名</th>
+        <th>工作</th>
+        <th>上司</th>
+        <th>入职日期</th>
+        <th>薪水</th>
+        <th>奖金</th>
+        <th>部门编号</th>
+        <th>操作</th>
+    </tr>`;
+                if(data.length>0){
+                    $.each(data,function (index,obj) {
+                        temp+=`
+                     <tr>
+                     <td>${obj.empno}</td>
+                     <td>${obj.ename}</td>
+                     <td>${obj.job}</td>
+                     <td>${obj.mgr}</td>
+                     <td>${obj.hireDate}</td>
+                     <td>${obj.sal}</td>
+                     <td>${obj.comm}</td>
+                     <td>${obj.deptno}</td>
+                     <td><a href="javascript:void(0);" onclick="">修改</a>/<a href="javascript:void(0);" onclick="">删除</a>
+                     </td>
+
+                     </tr>
+                    `;
+
+                    })
+                }else{
+
+                    temp += `
+                    <tr><td colspan="4">未找到数据</td></tr>
+                    `;
+
+                }
+                $("table").html(temp);
+            }
+        })
+    }
+
+</script>
+<body>
+<div align="center">
+根据姓名查询:<input type="text" id="ename"><input type="button" id="btnQuery" value="查询">
+<table border="1px" cellspacing="0" style="text-align: center">
+</table>
+</div>
+
+</body>
+</html>
