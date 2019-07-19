@@ -54,7 +54,7 @@
                      <td>${obj.sal}</td>
                      <td>${obj.comm}</td>
                      <td>${obj.deptno}</td>
-                     <td><a href="javascript:void(0);" onclick="">修改</a>/<a href="javascript:void(0);" onclick="">删除</a>
+                     <td><a href="javascript:void(0);" onclick="">修改</a>/<a href="javascript:void(0);" onclick="deleteid(${obj.empno})">删除</a>
                      </td>
 
                      </tr>
@@ -69,6 +69,24 @@
 
                 }
                 $("table").html(temp);
+            }
+        })
+    }
+
+    function deleteid( id) {
+        $.ajax({
+            url:'delteid',
+            dataType:'json',
+            type:'post',
+            data:{id:id},
+            success:function (data){
+                console.log(data);
+                if(data==1){
+                    alert("ok");
+                    StuList(null);
+                }else {
+                    alert("on")
+                }
             }
         })
     }

@@ -8,11 +8,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EmpService {
+public class EmpService implements EmpMapper {
     @Autowired
     private EmpMapper empMapper;
 
     public List<Emp> select(String ename){
         return empMapper.select(ename);
+    }
+     //删除
+    @Override
+    public int deletid(int id) {
+        return empMapper.deletid(id);
     }
 }
