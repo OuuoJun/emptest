@@ -1,13 +1,34 @@
 package com.topone.emptest.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class Emp implements Serializable {
+    private static final long serialVersionUID = 5806863207457376507L;
     private Integer empno,mgr,deptno;
     private String ename,job;
     private double sal,comm;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date hireDate;
+
+    @Override
+    public String toString() {
+        return "Emp{" +
+                "empno=" + empno +
+                ", mgr=" + mgr +
+                ", deptno=" + deptno +
+                ", ename='" + ename + '\'' +
+                ", job='" + job + '\'' +
+                ", sal=" + sal +
+                ", comm=" + comm +
+                ", hireDate=" + hireDate +
+                '}';
+    }
 
     public Integer getEmpno() {
         return empno;

@@ -2,5 +2,18 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.topone.mapper.EmpMapper">
+<mapper namespace="com.topone.emptest.mapper.EmpMapper">
+<resultMap id="emp_map" type="Emp">
+<result property="hireDate" column="hiredate"/>
+</resultMap>
+<select id="select" resultMap="emp_map">
+  select * from newemp
+  <where>
+    1=1
+    <if test="name!=null and name!=''">
+      and ename like concat('%',concat(#{name},'%'))
+    </if>
+  </where>
+
+</select>
 </mapper>
